@@ -1,46 +1,47 @@
-# Getting Started with Create React App
+# Mini Paint :paintbrush:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This application was created for the development and improvement of the author's skills
 
-## Available Scripts
+![mini-paint](https://user-images.githubusercontent.com/79158730/219965095-dde96f65-d0e1-4ce7-98d1-0c5b13c2a496.png)
 
-In the project directory, you can run:
+![drawing-page](https://user-images.githubusercontent.com/79158730/219965619-4472f9d5-97e3-4164-8f4d-52c30ab85a67.png)
 
-### `yarn start`
+## Task
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Here you can find the task :point_right:
+https://drive.google.com/file/d/19cb4whI_HUVPzuaPyaj5r6hGotIVnhho/view
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## How to run the app
 
-### `yarn test`
+1. _Clone the repo:_
+   `$ git clone https://github.com/KleimyonovVladimir/Innowise-Lab-Internship-Level-2-Mini-paint-.git`
+   
+2. _Install dependencies:_ `yarn` or `npm install`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. _Start the dev server:_ `yarn start` or `npm start`
 
-### `yarn build`
+## Database snapshot
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+In our firebase dataBase we have only one collection - _images_ 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![firebase-store](https://user-images.githubusercontent.com/79158730/219965220-8302069c-0031-460c-b86e-311e843eedba.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+How you can see, _images_ contains as much _image-item_(document) as we want. Every _images-item_ consists of id and 4 fields: date, title, name and url
 
-### `yarn eject`
+Our _canvas images_ we save into firebase storage in folder `images/` 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![firebase-storage](https://user-images.githubusercontent.com/79158730/219965461-d0268e81-2784-4434-8507-e504f15811c3.png)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![firebase-storage-files](https://user-images.githubusercontent.com/79158730/219965478-53a2f26d-21b1-4332-9c0d-7e147efac9be.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+For work with query in our application were used firebase methods such as `getDoc()`, `updateDoc()`, `deleteDoc()` etc.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**All secret-values located in `.env` file**
 
-## Learn More
+Copy the example env file and make the required configuration changes in the .env file
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+`cp .env.example .env`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Application stack :memo: 
+
+This is application includes technologies such as: **_SASS, Material UI, Firebase_**.
