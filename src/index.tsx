@@ -6,7 +6,7 @@ import { theme } from 'theme'
 
 import App from './App'
 
-import './index.css'
+import 'styles/common.scss'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(

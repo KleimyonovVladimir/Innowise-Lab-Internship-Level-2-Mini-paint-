@@ -1,0 +1,15 @@
+@import 'src/styles/variables';
+
+.header {
+  background-color: $ui-color-light-blue;
+  height: $ui-header-height;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  justify-content: space-between;
+  grid-column-gap: 30px;
+  color: $ui-color-white;
+}
+.logo {
+  color: $ui-color-white;
+}

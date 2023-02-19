@@ -1,0 +1,16 @@
+@import 'src/styles/variables';
+
+.content {
+  padding: 15px;
+  height: calc(100vh - $ui-header-height);
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    background-color: $ui-color-white;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: $ui-color-dark-grey;
+  }
+}

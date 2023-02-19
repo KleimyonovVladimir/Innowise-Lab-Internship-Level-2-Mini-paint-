@@ -18,6 +18,10 @@ export const theme = createTheme({
           '&:hover': {
             boxShadow: 'none'
           }
+        },
+        text: {
+          textTransform: 'uppercase',
+          fontWeight: 700
         }
       }
     },

@@ -1,12 +1,12 @@
 import { createContext, type FC, useContext, useState } from 'react'
-import { userRepository } from 'config/userRepository'
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   type User,
   type UserCredential
-} from 'firebase/auth'
+} from '@firebase/auth'
+import { userRepository } from 'config/userRepository'
 import { auth } from 'firebase-config'
 
 interface IAuthContextProviderProps {

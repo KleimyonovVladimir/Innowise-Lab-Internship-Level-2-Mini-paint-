@@ -1,0 +1,30 @@
+@import 'src/styles/variables';
+
+.cardsInfo {
+  text-transform: capitalize;
+  font-weight: bold;
+}
+.cardItem {
+  width: fit-content;
+  box-shadow: $ui-color-shadow;
+  padding: 10px;
+}
+.imageWrapper {
+  width: 300px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &Mobile {
+    width: 100%;
+  }
+}
+.caption {
+  margin-top: 10px;
+}
+.cardsInfoWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

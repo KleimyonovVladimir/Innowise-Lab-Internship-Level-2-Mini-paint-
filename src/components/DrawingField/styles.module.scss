@@ -1,0 +1,10 @@
+@import 'src/styles/variables';
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+.canvas {
+  border: 2px solid $ui-color-black;
+  width: 100%;
+}

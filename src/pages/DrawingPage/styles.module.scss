@@ -1,0 +1,17 @@
+.canvasWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  &Mobile {
+    display: block;
+  }
+}
+.inputsDrawingWrapper {
+  display: grid;
+  grid-template-columns: auto;
+  grid-auto-flow: column;
+  align-items: center;
+  grid-gap: 20px;
+  margin-bottom: 20px;
+}

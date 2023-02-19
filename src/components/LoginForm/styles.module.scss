@@ -1,0 +1,41 @@
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+
+  &Mobile {
+    width: auto;
+    position: static;
+    left: 0;
+    top: 0;
+    transform: translate(0, 0);
+    padding: 15px;
+  }
+}
+.loginTitle {
+  margin-bottom: 32px;
+}
+.inputsContainer {
+  display: grid;
+  grid-row-gap: 35px;
+  margin-bottom: 40px;
+}
+.loginMessage {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  font-size: 18px;
+
+  &Mobile {
+    p,
+    a {
+      font-size: 14px;
+    }
+  }
+}
+.loginButton {
+  padding: 10px 0;
+}

@@ -1,10 +1,13 @@
 import { type FC } from 'react'
+import { useMediaQuery } from 'react-responsive'
 import { Link } from 'react-router-dom'
 import { TextField } from '@mui/material'
 import Button from '@mui/material/Button'
+import clsx from 'clsx'
 
-import { styles } from './styles'
 import { type IProps } from './type'
+
+import styles from './styles.module.scss'
 
 const LoginForm: FC<IProps> = ({
   title,
@@ -16,11 +19,13 @@ const LoginForm: FC<IProps> = ({
   onChangeForEmail,
   onChangeForPassword
 }) => {
+  const isMobile = useMediaQuery({ query: '(max-width: 576px)' })
+
   return (
-    <div style={styles.container}>
-      <h1 style={styles.loginTitle}>{title}</h1>
+    <div className={clsx(styles.container, isMobile && styles.containerMobile)}>
+      <h1 className={styles.loginTitle}>{title}</h1>
       <form onSubmit={onSubmit}>
-        <div style={styles.inputsContainer}>
+        <div className={styles.inputsContainer}>
           <TextField
             variant="standard"
             name="email"
@@ -38,11 +43,11 @@ const LoginForm: FC<IProps> = ({
             onChange={onChangeForPassword}
           />
         </div>
-        <Button variant="contained" fullWidth type="submit" style={styles.loginButton}>
+        <Button variant="contained" fullWidth type="submit" className={styles.loginButton}>
           {buttonText}
         </Button>
       </form>
-      <div style={styles.loginMessage}>
+      <div className={clsx(styles.loginMessage, isMobile && styles.loginMessageMobile)}>
         <p>{formMessage}</p>
         <Link to={link}>{linkText}</Link>
       </div>

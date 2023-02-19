@@ -1,0 +1,11 @@
+.parameters {
+  margin-bottom: 20px;
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto;
+  grid-auto-flow: column;
+  grid-gap: 16px;
+}
+.parametersLabel {
+  margin-right: 10px;
+}

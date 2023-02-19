@@ -1,0 +1,32 @@
+@import 'src/styles/variables';
+
+.cardsList {
+  gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+.galleryInfo,
+.searchWrapper {
+  display: flex;
+  align-items: center;
+
+  &Mobile {
+    display: grid;
+    grid-gap: 16px;
+  }
+}
+
+.galleryInfo {
+  justify-content: space-between;
+}
+.toDrawingLink {
+  text-transform: uppercase;
+
+  &:hover {
+    color: $ui-color-primary;
+  }
+}
+.pageTitle {
+  width: 100%;
+}
