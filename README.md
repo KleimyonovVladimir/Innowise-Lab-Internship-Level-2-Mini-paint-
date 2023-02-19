@@ -34,7 +34,7 @@ Our _canvas images_ we save into firebase storage in folder `images/`
 
 ![firebase-storage-files](https://user-images.githubusercontent.com/79158730/219965478-53a2f26d-21b1-4332-9c0d-7e147efac9be.png)
 
-For work with query in our application were used firebase methods such as `getDoc()`, `updateDoc()`, `deleteDoc()` etc.
+For work with query in our application were used firebase methods such as `getDoc()`, `deleteDoc()` etc.
 
 **All secret-values located in `.env` file**
 
