@@ -31,7 +31,10 @@ export const AuthContextProvider: FC<IAuthContextProviderProps> = ({ children })
   }
 
   const createUser = async (email: string, password: string): Promise<void> => {
-    await createUserWithEmailAndPassword(auth, email, password)
+    const response = await createUserWithEmailAndPassword(auth, email, password)
+
+    setAuthUser(response.user)
+    userRepository.setUser(response.user)
   }
 
   const logOut = async (): Promise<void> => {

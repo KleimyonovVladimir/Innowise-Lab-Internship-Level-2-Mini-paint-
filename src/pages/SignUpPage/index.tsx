@@ -33,18 +33,16 @@ const SignUpPage: FC = () => {
   }
 
   return (
-    <>
-      <LoginForm
-        title="Sign Up"
-        buttonText="Sign Up"
-        formMessage="Already have an account?"
-        link={AppNavigationRoutes.SignIn}
-        linkText="Sign In"
-        onSubmit={handleSubmit}
-        onChangeForEmail={handleEmail}
-        onChangeForPassword={handlePassword}
-      />
-    </>
+    <LoginForm
+      title="Sign Up"
+      buttonText="Sign Up"
+      formMessage="Already have an account?"
+      link={AppNavigationRoutes.SignIn}
+      linkText="Sign In"
+      onSubmit={handleSubmit}
+      onChangeForEmail={handleEmail}
+      onChangeForPassword={handlePassword}
+    />
   )
 }
 
