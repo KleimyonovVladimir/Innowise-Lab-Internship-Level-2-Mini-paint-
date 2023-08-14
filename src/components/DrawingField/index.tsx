@@ -1,4 +1,5 @@
 import { type FC } from 'react'
+import { CANVAS_SIZE } from 'constants/canvas'
 
 import { type IProps } from './type'
 
@@ -13,6 +14,8 @@ const DrawingField: FC<IProps> = ({ canvasRef, onMouseDown, onMouseUp, onMouseMo
         onMouseMove={onMouseMove}
         ref={canvasRef}
         className={styles.canvas}
+        width={CANVAS_SIZE.width}
+        height={CANVAS_SIZE.height}
       />
     </div>
   )

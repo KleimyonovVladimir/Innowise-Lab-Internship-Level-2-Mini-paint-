@@ -4,8 +4,10 @@ import { useNavigate } from 'react-router'
 import { addDoc, collection } from '@firebase/firestore'
 import { Button, TextField } from '@mui/material'
 import clsx from 'clsx'
+import { CANVAS_SIZE } from 'constants/canvas'
 import { AppNavigationRoutes } from 'constants/path'
 import { dataBase, storageRef } from 'firebase-config'
+import { type ISnapshot } from 'types/types'
 import { toastMessage } from 'utils/toastMessage'
 
 import DrawingField from 'components/DrawingField'
@@ -17,6 +19,14 @@ const DrawingPage: FC = () => {
   const navigate = useNavigate()
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
+  const contextRef = useRef<CanvasRenderingContext2D | null>(null)
+
+  const [snapshot, setSnapshot] = useState<ISnapshot>({
+    data: new Uint8ClampedArray(0),
+    colorSpace: 'srgb',
+    height: CANVAS_SIZE.height,
+    width: CANVAS_SIZE.width
+  })
 
   const [isDrawing, setIsDrawing] = useState(false)
   const [lineWidth, setLineWidth] = useState<number>(1)
@@ -28,35 +38,44 @@ const DrawingPage: FC = () => {
   const [coordinates, setCoordinates] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    const context = canvas?.getContext('2d')
+    if (canvasRef.current) {
+      const canvas = canvasRef.current
+      const context = canvas?.getContext('2d', {
+        willReadFrequently: true
+      })
 
-    if (canvas) {
-      canvas.width = 1400
-      canvas.height = 650
-    }
-
-    if (context) {
-      context.lineJoin = 'round'
-      context.lineCap = 'round'
+      if (context) {
+        context.lineJoin = 'round'
+        context.lineCap = 'round'
+      }
+      contextRef.current = context
     }
   }, [])
 
   const startDrawing = (event: React.MouseEvent<HTMLCanvasElement>): void => {
-    const canvas = canvasRef.current
-    const context = canvas?.getContext('2d')
+    setIsDrawing(true)
+    const context = contextRef.current
 
     if (!context) return
+
+    const { offsetX, offsetY } = event.nativeEvent
+
+    const x = offsetX
+    const y = offsetY
+
     context.beginPath()
 
-    context.strokeStyle = lineColor
     context.lineWidth = lineWidth
+    context.strokeStyle = lineColor
 
-    setIsDrawing(true)
+    if (tool === 'brush') {
+      drawDot(offsetX, offsetY)
+    }
 
+    setSnapshot(context?.getImageData(0, 0, context?.canvas.width, context?.canvas.height))
     setCoordinates({
-      x: event.nativeEvent.offsetX,
-      y: event.nativeEvent.offsetY
+      x,
+      y
     })
   }
 
@@ -64,57 +83,53 @@ const DrawingPage: FC = () => {
     setIsDrawing(false)
   }
 
+  const drawDot = (offsetX: number, offsetY: number): void => {
+    const context = contextRef.current
+
+    context?.moveTo(offsetX, offsetY)
+    context?.lineTo(offsetX, offsetY)
+    context?.stroke()
+  }
+
   const draw = (event: React.MouseEvent<HTMLCanvasElement>): void => {
-    if (!isDrawing) {
-      return
-    }
+    if (!isDrawing) return
+
     const { offsetX, offsetY } = event.nativeEvent
 
-    const context = canvasRef.current?.getContext('2d')
+    const context = contextRef.current
 
-    if (!context) {
-      return
-    }
-
-    context.strokeStyle = lineColor
-    context.lineWidth = lineWidth
+    context?.putImageData(snapshot, 0, 0)
 
     if (tool === 'brush') {
-      context.beginPath()
-      context.moveTo(coordinates.x, coordinates.y)
-      context.lineTo(offsetX, offsetY)
-      context.stroke()
-      context.save()
-
-      setCoordinates({ x: offsetX, y: offsetY })
-      context.closePath()
+      context?.lineTo(offsetX, offsetY)
+      context?.stroke()
     } else if (tool === 'circle') {
+      context?.beginPath()
+
       const radius = Math.sqrt(
         Math.pow(offsetX - coordinates.x, 2) + Math.pow(offsetY - coordinates.y, 2)
       )
-      clear(context)
-      context.beginPath()
-      context.arc(coordinates.x, coordinates.y, radius, 0, 2 * Math.PI)
-      context.stroke()
-      context.closePath()
+      context?.arc(coordinates.x, coordinates.y, radius, 0, 2 * Math.PI)
+      context?.stroke()
     } else if (tool === 'line') {
-      clear(context)
-      context.beginPath()
-      context.moveTo(coordinates.x, coordinates.y)
-      context.lineTo(offsetX, offsetY)
-      context.stroke()
-      context.closePath()
+      context?.beginPath()
+      context?.moveTo(coordinates.x, coordinates.y)
+      context?.lineTo(offsetX, offsetY)
+      context?.stroke()
     } else if (tool === 'rectangle') {
-      clear(context)
-      context.beginPath()
-      context.rect(coordinates.x, coordinates.y, offsetX - coordinates.x, offsetY - coordinates.y)
-      context.stroke()
-      context.closePath()
+      context?.strokeRect(
+        coordinates.x,
+        coordinates.y,
+        offsetX - coordinates.x,
+        offsetY - coordinates.y
+      )
+      context?.closePath()
     }
   }
 
-  const clear = (context: CanvasRenderingContext2D): void => {
-    context.clearRect(0, 0, canvasRef.current?.width ?? 0, canvasRef.current?.height ?? 0)
+  const clearCanvas = (): void => {
+    const context = contextRef.current
+    context?.clearRect(0, 0, context.canvas.width, context.canvas.height)
   }
 
   const saveImage = async (fireBaseName: string): Promise<string> => {
@@ -197,6 +212,14 @@ const DrawingPage: FC = () => {
         onClick={handleSaveImage}
       >
         Save
+      </Button>
+      <Button
+        style={{ width: 'fit-content', height: 'fit-content', marginLeft: '15px' }}
+        type="submit"
+        variant="outlined"
+        onClick={clearCanvas}
+      >
+        Clear
       </Button>
     </div>
   )
